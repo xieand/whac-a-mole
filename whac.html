@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Whack-a-Mole</title>
+  <link rel="stylesheet" href="whac.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+  <!-- Home Screen -->
+  <div id="screenHome" class="screen active">
+    <h1>Whack-a-Mole</h1>
+    <label>Game Length (cycles):
+      <select id="timeDropdown">
+        <option value="10">10</option>
+        <option value="20" selected>20</option>
+        <option value="30">30</option>
+      </select>
+    </label>
+    <br><br>
+    <label>Speed (ms):
+      <select id="intervalDropdown">
+        <option value="1000" selected>1000</option>
+        <option value="700">700</option>
+        <option value="500">500</option>
+      </select>
+    </label>
+    <br><br>
+    <button id="startButton">Start Game</button>
+  </div>
+
+  <!-- Game Screen -->
+  <div id="screenMain" class="screen">
+    <div id="gameBoard">
+      <div class="hole" id="button1"></div>
+      <div class="hole" id="button2"></div>
+      <div class="hole" id="button3"></div>
+      <div class="hole" id="button4"></div>
+      <div class="hole" id="button5"></div>
+      <div class="hole" id="button6"></div>
+      <div class="hole" id="button7"></div>
+      <div class="hole" id="button8"></div>
+      <div class="hole" id="button9"></div>
+    </div>
+    <div id="mole">🐹</div>
+    <p id="scoreText">Score: 0</p>
+  </div>
+
+  <!-- Finish Screen -->
+  <div id="screenFinish" class="screen">
+    <p id="finalScore"></p>
+    <button id="returnHome">Home</button>
+  </div>
+
+  <script src="whac.js"></script>
+</body>
+</html>
+

@@ -1,0 +1,27 @@
+body { font-family: Arial, sans-serif; text-align: center; }
+#gameBoard {
+  display: grid;
+  grid-template-columns: repeat(3, 100px);
+  grid-gap: 10px;
+  margin: 20px auto;
+  width: max-content;
+}
+.hole {
+  width: 100px;
+  height: 100px;
+  background-color: burlywood;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 40px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+#mole {
+  display: none;
+  font-size: 40px;
+  /* allow clicking the mole */
+  pointer-events: auto; /* placed into holes dynamically */
+}
+.screen { display: none; }
+.active { display: block; }
