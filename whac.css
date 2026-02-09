@@ -1,27 +1,158 @@
-body { font-family: Arial, sans-serif; text-align: center; }
-#gameBoard {
-  display: grid;
-  grid-template-columns: repeat(3, 100px);
-  grid-gap: 10px;
-  margin: 20px auto;
-  width: max-content;
+/* 1. IMPORT A FUN FONT */
+@import url('https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap');
+
+:root {
+  --grass-light: #8bc34a;
+  --grass-dark: #558b2f;
+  --dirt: #795548;
+  --dirt-shadow: #3e2723;
+  --ui-bg: rgba(255, 255, 255, 0.9);
+  --btn-color: #ffca28;
+  --btn-shadow: #c79100;
 }
-.hole {
-  width: 100px;
-  height: 100px;
-  background-color: burlywood;
+
+body {
+  font-family: 'Fredoka One', cursive; /* The game font */
+  background: radial-gradient(circle, var(--grass-light), var(--grass-dark));
+  margin: 0;
+  height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 40px;
+  overflow: hidden; /* Prevent scrolling */
+  user-select: none; /* Prevent highlighting text while playing */
+}
+
+/* 2. THE UI CARD (Container for Home/Finish screens) */
+.screen {
+  display: none; /* Hidden by default */
+  background: var(--ui-bg);
+  padding: 40px;
+  border-radius: 20px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+  text-align: center;
+  width: 90%;
+  max-width: 400px;
+  animation: popIn 0.3s ease;
+}
+
+.screen.active {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+h1 {
+  color: var(--grass-dark);
+  font-size: 3rem;
+  margin: 0 0 10px 0;
+  text-shadow: 2px 2px 0px white;
+}
+
+/* 3. STYLING INPUTS & BUTTONS */
+select {
+  padding: 10px;
+  border-radius: 10px;
+  border: 2px solid var(--grass-dark);
+  font-family: inherit;
+  font-size: 1rem;
+  background: white;
   cursor: pointer;
-  transition: background-color 0.3s;
 }
+
+button {
+  background-color: var(--btn-color);
+  border: none;
+  padding: 15px 30px;
+  font-size: 1.5rem;
+  font-family: inherit;
+  color: #333;
+  border-radius: 50px;
+  cursor: pointer;
+  box-shadow: 0 6px 0 var(--btn-shadow); /* The 3D bottom edge */
+  transition: transform 0.1s, box-shadow 0.1s;
+  margin-top: 10px;
+}
+
+button:active {
+  transform: translateY(6px); /* Push down */
+  box-shadow: 0 0 0 var(--btn-shadow); /* Remove shadow to look flat */
+}
+
+/* 4. THE GAME BOARD */
+#screenMain.active {
+  background: transparent; /* No card background for gameplay */
+  box-shadow: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#gameBoard {
+  display: grid;
+  grid-template-columns: repeat(3, 100px);
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+/* 5. THE HOLES (Making them look deep) */
+.hole {
+  width: 100px;
+  height: 100px;
+  background-color: var(--dirt);
+  border-radius: 50%; /* Make them circles */
+  position: relative;
+  overflow: hidden; /* Mole hides when "underground" if we animate */
+  cursor: crosshair; /* Changes mouse to look like you're aiming */
+  
+  /* Inner shadow creates the illusion of a hole in the ground */
+  box-shadow: inset 0 10px 20px var(--dirt-shadow), 
+              0 5px 0 rgba(255,255,255,0.2); /* faint highlight at bottom */
+  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: transform 0.1s;
+}
+
+.hole:active {
+  transform: scale(0.95); /* Screen shake feel on click */
+}
+
+/* 6. THE MOLE */
 #mole {
+  font-size: 70px; /* Bigger! */
   display: none;
-  font-size: 40px;
-  /* allow clicking the mole */
-  pointer-events: auto; /* placed into holes dynamically */
+  user-select: none;
+  cursor: pointer;
+  filter: drop-shadow(0 5px 5px rgba(0,0,0,0.5)); /* Shadow behind the emoji */
+  animation: popUp 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Bouncy pop */
 }
-.screen { display: none; }
-.active { display: block; }
+
+#scoreText {
+  font-size: 2rem;
+  color: white;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+  margin: 0;
+}
+
+/* ANIMATIONS */
+@keyframes popIn {
+  from { transform: scale(0.8); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+@keyframes popUp {
+  from { transform: translateY(50px) scale(0.5); }
+  to { transform: translateY(0) scale(1); }
+}
+
+/* Responsive adjustments for mobile */
+@media (max-width: 400px) {
+  #gameBoard {
+    grid-template-columns: repeat(3, 80px);
+    gap: 10px;
+  }
+  .hole { width: 80px; height: 80px; }
+  #mole { font-size: 55px; }
+}
