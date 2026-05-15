@@ -14,7 +14,7 @@ A simple browser-based Whack-a-Mole game built with plain HTML, CSS, and JavaScr
 ## How to Run
 
 1. Clone this repository.
-2. Open `/home/runner/work/whac-a-mole/whac-a-mole/whac.html` in your browser.
+2. Open `whac.html` in your browser.
 
 No build step or dependencies are required.
 
